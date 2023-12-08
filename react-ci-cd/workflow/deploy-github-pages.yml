@@ -4,3 +4,55 @@ name: Deploy GitHub Pages
 on:
   branches:
     - main
+      - main
+  # Action manuel pour éxecuter l'action
+  #workflow_dispatch:
+  #  branches:
+  #    - main
+
+
+#Définition des permissions et autorisation afin de déployer sur GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+#lorquon va push plusieurs fois sur la meme branches ca va lancer plusieurs fois l'action
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+  jobs:
+  build:
+    environment: production
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+#la ou valacer nos commandes, le reposotory 
+        working-directory: ./
+    steps:
+    # Récupération du code
+      - name: Fetch Code
+        uses: actions/checkout@v4
+        # Installation des dépendances
+      - name: Install dependencies
+        run: npm install
+      # Build de react
+      - name: Build
+       uses: actions/checkout@v4
+      # Installation des dépendances
+      - name: Install dependencies
+        run: npm install
+      # Build de react
+      - name: Build
+        run: npm run build
+      # Génération de l'artefact
+      - name: Generate Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: ./dist
+      
+        
+  
