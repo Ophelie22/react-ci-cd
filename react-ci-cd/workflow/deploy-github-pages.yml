@@ -1,4 +1,4 @@
-ame: Deploy GitHub Pages
+name: Deploy GitHub Pages
 
 # Déclenche le déploiement à chaque push sur la branch main
 on:
@@ -41,7 +41,7 @@ jobs:
         run: npm run build
       # Génération de l'artefact
       - name: Generate Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
           name: artifact
           path: ./dist
