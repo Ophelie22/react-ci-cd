@@ -1,0 +1,6 @@
+name: Deploy GitHub Pages
+
+# Déclenche le déploiement à chaque push sur la branch main
+on:
+  branches:
+    - main
